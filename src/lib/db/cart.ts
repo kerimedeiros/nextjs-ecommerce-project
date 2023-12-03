@@ -3,6 +3,7 @@ import { prisma } from "./prisma";
 import { Cart } from "@prisma/client";
 
 // reminder to run npx prisma generate
+// test auth
 
 export type CartWithProducts = Prisma.CartGetPayload<{
   include: { items: { include: { product: true } } };
