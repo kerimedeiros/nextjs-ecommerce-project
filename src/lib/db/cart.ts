@@ -2,9 +2,6 @@ import { cookies } from "next/dist/client/components/headers";
 import { prisma } from "./prisma";
 import { Cart } from "@prisma/client";
 
-// reminder to run npx prisma generate
-// test auth
-
 export type CartWithProducts = Prisma.CartGetPayload<{
   include: { items: { include: { product: true } } };
 }>;
@@ -15,7 +12,7 @@ export type ShoppingCart = CartWithProducts & {
 };
 
 export async function getCart(): Promise<ShoppingCart | null> {
-  const localCartId = cookies().get("localCartId").value;
+  const localCartId = cookies().get("localCartId")?.value;
   const cart = localCartId
     ? await prisma.cart.findUnique({
         where: { id: localCartId },
