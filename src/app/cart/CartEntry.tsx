@@ -15,7 +15,8 @@ export default function CartEntry({
   cartItem: { product, quantity },
   setProductQuantity,
 }: CartEntryProps) {
-  const [isPending, startTransition] = useTransition;
+  const [isPending, startTransition] = useTransition();
+
   const quantityOptions: JSX.Element[] = [];
   for (let i = 1; i <= 99; i++) {
     quantityOptions.push(
@@ -47,13 +48,20 @@ export default function CartEntry({
               defaultValue={quantity}
               onChange={(e) => {
                 const newQuantity = parseInt(e.currentTarget.value);
+                startTransition(async () => {
+                  await setProductQuantity(product.id, newQuantity);
+                });
               }}
             >
+              <option value={0}>0 (Remove)</option>
               {quantityOptions}
             </select>
           </div>
           <div className="flex items-center gap-3">
             Total: {formatPrice(product.price * quantity)}
+            {isPending && (
+              <span className="loading loading-spinner loading-sm" />
+            )}
           </div>
         </div>
       </div>

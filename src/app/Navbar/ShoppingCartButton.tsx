@@ -46,7 +46,7 @@ export default function ShoppingCartButton({ cart }: ShoppingCartButtonProps) {
         <div className="card-body">
           <span className="text-lg font-bold">{cart?.size || 0} Items</span>
           <span className="text-info">
-            Subtotal: {formatPrice(cart.subtotal || 0)}
+            Subtotal: {formatPrice(cart?.subtotal || 0)}
           </span>
           <div className="card-actions">
             <Link
@@ -54,7 +54,7 @@ export default function ShoppingCartButton({ cart }: ShoppingCartButtonProps) {
               className="btn btn-primary btn-block"
               onClick={closeDropdown}
             >
-              View Cart
+              View cart
             </Link>
           </div>
         </div>
